@@ -15,6 +15,15 @@ public class Player2Movement : MonoBehaviour
 
     public UnityEngine.Vector3 initialPosition;
 
+    public GameObject ball;
+
+    private UnityEngine.Vector2 ballPosition;
+
+    public bool isRealPlayer;
+
+    private bool stopped = false;
+
+
     private void Awake()
     {
         player2 = new Player2();
@@ -32,6 +41,25 @@ public class Player2Movement : MonoBehaviour
         player2.Disable();
     }
 
+    void chaseBall(){
+        ballPosition = ball.transform.position;
+    	
+        float speedAdition = UnityEngine.Random.Range(0f,2f);
+        if(stopped){
+            speedAdition = 0;
+        }
+
+        
+        if(transform.position.y > ballPosition.y){
+            transform.position = transform.position + new UnityEngine.Vector3(0,-(speed+speedAdition)*Time.deltaTime,0);
+        }
+
+        if(transform.position.y < ballPosition.y){
+            transform.position = transform.position + new UnityEngine.Vector3(0,(speed+speedAdition)*Time.deltaTime,0);
+        }
+    }
+    
+
     private void Start()
     {
         initialPosition = transform.position;
@@ -40,10 +68,16 @@ public class Player2Movement : MonoBehaviour
     private void Update()
     {
 
-        float movementInputP2 = player2.Player.Move.ReadValue<float>();
-        UnityEngine.Vector3 currentPositionP2 = transform.position;
-        currentPositionP2.y += movementInputP2 * speed * Time.deltaTime;
-        transform.position = currentPositionP2;
+        if(isRealPlayer){
+            float movementInputP2 = player2.Player.Move.ReadValue<float>();
+            UnityEngine.Vector3 currentPositionP2 = transform.position;
+            currentPositionP2.y += movementInputP2 * speed * Time.deltaTime;
+            transform.position = currentPositionP2;
+        }
+        else{
+            chaseBall();
+        }
+
 
     }
 
@@ -53,13 +87,14 @@ public class Player2Movement : MonoBehaviour
 
         float tempSpeed = speed;
         speed = 0;
+        stopped = true;
         // execute block of code here
         Debug.Log("speed 0");
         yield return new WaitForSeconds(2f);
         Debug.Log("speed " + tempSpeed);
 
         speed = tempSpeed;
-
+        stopped = false;
     }
 
     IEnumerator turboMovement(string lastPlayed)

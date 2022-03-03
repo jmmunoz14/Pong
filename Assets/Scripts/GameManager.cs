@@ -70,7 +70,6 @@ public class GameManager : MonoBehaviour
             P2PowerUp.text = powerUp;
         }
         yield return new WaitForSeconds(2f);
-        Debug.Log("asdasdasdadsadsadadssddadsa");
         P1PowerUp.text = "";
         P2PowerUp.text = "";
 

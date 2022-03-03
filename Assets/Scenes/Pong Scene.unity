@@ -157,6 +157,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   initialPosition: {x: 0, y: 0, z: 0}
+  ball: {fileID: 2043422173}
+  isRealPlayer: 0
 --- !u!212 &30981122
 SpriteRenderer:
   m_ObjectHideFlags: 0
