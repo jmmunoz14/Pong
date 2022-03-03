@@ -51,11 +51,12 @@ public class Player2Movement : MonoBehaviour
 
         
         if(transform.position.y > ballPosition.y){
-            transform.position = transform.position + new UnityEngine.Vector3(0,-(speed+speedAdition)*Time.deltaTime,0);
+            Debug.Log("SPEED P2 " + speed);
+            transform.position += new UnityEngine.Vector3(0,-(speed+speedAdition)*Time.deltaTime,0);
         }
 
         if(transform.position.y < ballPosition.y){
-            transform.position = transform.position + new UnityEngine.Vector3(0,(speed+speedAdition)*Time.deltaTime,0);
+            transform.position += new UnityEngine.Vector3(0,(speed+speedAdition)*Time.deltaTime,0);
         }
     }
     
